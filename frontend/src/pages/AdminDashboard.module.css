@@ -1,0 +1,146 @@
+.page {
+  padding: 2rem 0 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1a1a2e;
+}
+
+.createBtn {
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.createBtn:hover {
+  background: #c73652;
+}
+
+.error {
+  background: #fde8ec;
+  color: #c0392b;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.loading, .empty {
+  color: #888;
+  padding: 2rem;
+  text-align: center;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.table th {
+  background: #1a1a2e;
+  color: white;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: #fafafa;
+}
+
+.titleCell {
+  font-weight: 600;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.soldOut {
+  color: #e94560;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.reportBtn {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.reportBtn:hover {
+  background: #bbdefb;
+}
+
+.editBtn {
+  background: #fff8e1;
+  color: #f57f17;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.editBtn:hover {
+  background: #ffecb3;
+}
+
+.deleteBtn {
+  background: #fde8ec;
+  color: #c0392b;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #f8c6cc;
+}

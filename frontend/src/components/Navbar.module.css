@@ -1,0 +1,90 @@
+.navbar {
+  background-color: #1a1a2e;
+  color: white;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e94560;
+  letter-spacing: 1px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.links a {
+  color: #ccc;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: white;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.userName {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: 1px solid #e94560;
+  color: #e94560;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+  background: #e94560;
+  color: white;
+}
+
+.loginBtn {
+  background: transparent;
+  border: 1px solid #aaa;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.loginBtn:hover {
+  border-color: white;
+  color: white;
+}
+
+.registerBtn {
+  background: #e94560;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white !important;
+  transition: background 0.2s;
+}
+
+.registerBtn:hover {
+  background: #c73652;
+}

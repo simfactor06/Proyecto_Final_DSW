@@ -1,0 +1,19 @@
+# Backend
+backend/ticketek-api
+backend/*.exe
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Docker volumes
+db_data/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp

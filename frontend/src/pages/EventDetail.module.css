@@ -1,0 +1,131 @@
+.loading {
+  text-align: center;
+  padding: 4rem;
+  color: #888;
+}
+
+.page {
+  padding: 2rem 0;
+}
+
+.banner {
+  height: 280px;
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 2rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.category {
+  display: inline-block;
+  background: #fde8ec;
+  color: #e94560;
+  padding: 0.25rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 0.8rem;
+}
+
+.meta {
+  display: flex;
+  gap: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.description {
+  color: #444;
+  line-height: 1.8;
+  font-size: 0.97rem;
+}
+
+.priceBox {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 80px;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #e94560;
+  margin-bottom: 0.3rem;
+}
+
+.spots {
+  color: #888;
+  font-size: 0.88rem;
+  margin-bottom: 1.2rem;
+}
+
+.buyBtn {
+  width: 100%;
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.buyBtn:hover:not(:disabled) {
+  background: #c73652;
+}
+
+.buyBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.error {
+  background: #fde8ec;
+  color: #c0392b;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  margin-bottom: 0.8rem;
+}
+
+.adminNote {
+  font-size: 0.88rem;
+  color: #888;
+  text-align: center;
+  padding: 0.5rem 0;
+}
