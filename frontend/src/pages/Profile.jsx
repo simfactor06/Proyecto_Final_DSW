@@ -37,16 +37,16 @@ export default function Profile() {
     }
   }
 
-  async function handleTransferConfirm(email) {
+  async function handleTransferConfirm(dni) {
     try {
-      await ticketService.transfer(transferTicket.ID, email);
+      await ticketService.transfer(transferTicket.ID, dni);
       setTickets((ts) =>
         ts.map((t) => (t.ID === transferTicket.ID ? { ...t, status: "Transferred" } : t))
       );
       setTransferTicket(null);
-      addToast(`Entrada transferida a ${email}.`, "success");
+      addToast("Entrada transferida correctamente.", "success");
     } catch (err) {
-      addToast(err.response?.data?.error || "Error al transferir. Verificá que el email esté registrado.", "error");
+      addToast(err.response?.data?.error || "Error al transferir. Verificá que el DNI esté registrado.", "error");
       throw err;
     }
   }

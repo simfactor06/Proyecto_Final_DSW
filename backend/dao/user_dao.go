@@ -23,3 +23,11 @@ func GetUserByID(id uint) (*domain.User, error) {
 	}
 	return &user, nil
 }
+
+func GetUserByDNI(dni string) (*domain.User, error) {
+	var user domain.User
+	if err := DB.Where("dni = ?", dni).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
