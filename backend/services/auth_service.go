@@ -12,6 +12,7 @@ type RegisterInput struct {
 	Name     string `json:"name" binding:"required"`
 	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required,min=6"`
+	DNI      string `json:"dni" binding:"required"`
 }
 
 type LoginInput struct {
@@ -34,6 +35,7 @@ func Register(input RegisterInput) (*AuthResponse, error) {
 		Email:        input.Email,
 		PasswordHash: utils.HashPassword(input.Password),
 		Role:         domain.RoleClient,
+		DNI:          input.DNI,
 	}
 	if err := dao.CreateUser(user); err != nil {
 		return nil, err

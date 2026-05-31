@@ -15,11 +15,16 @@ export default function EventDetail() {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [buying, setBuying] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     eventService.getById(id).then(setEvent).catch(() => navigate("/")).finally(() => setLoading(false));
   }, [id, navigate]);
+
+  const maxQty = event ? Math.min(event.available_spots, 10) : 1;
+  const buyText = quantity > 1 ? `Comprar ${quantity} entradas` : "Comprar entrada";
+  const buyLabel = buying ? "Procesando..." : buyText;
 
   async function handleBuy() {
     if (!isAuthenticated) {
@@ -28,10 +33,13 @@ export default function EventDetail() {
     }
     setBuying(true);
     try {
-      await ticketService.purchase(event.ID);
+      await ticketService.purchase(event.ID, quantity);
       setSuccess(true);
-      setEvent((e) => ({ ...e, available_spots: e.available_spots - 1 }));
-      addToast("¡Entrada comprada con éxito! Revisá tus entradas en el perfil.", "success");
+      setEvent((e) => ({ ...e, available_spots: e.available_spots - quantity }));
+      const msg = quantity === 1
+        ? "¡Entrada comprada con éxito! Revisá tus entradas en el perfil."
+        : `¡${quantity} entradas compradas con éxito! Revisalas en tu perfil.`;
+      addToast(msg, "success");
     } catch (err) {
       const msg = err.response?.data?.error || "Error al comprar la entrada";
       addToast(msg, "error");
@@ -82,17 +90,48 @@ export default function EventDetail() {
               {isAdmin && (
                 <p className={styles.adminNote}>Los administradores no pueden comprar entradas.</p>
               )}
-              {!isAdmin && success && (
-                <div className={styles.success}>¡Compra exitosa! Tu entrada fue generada.</div>
+
+              {!isAdmin && !success && event.available_spots > 0 && (
+                <div className={styles.quantityRow}>
+                  <label htmlFor="qty" className={styles.qtyLabel}>Cantidad</label>
+                  <div className={styles.qtyControls}>
+                    <button
+                      type="button"
+                      className={styles.qtyBtn}
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                      disabled={quantity <= 1}
+                      aria-label="Reducir cantidad"
+                    >−</button>
+                    <span className={styles.qtyValue} id="qty">{quantity}</span>
+                    <button
+                      type="button"
+                      className={styles.qtyBtn}
+                      onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
+                      disabled={quantity >= maxQty}
+                      aria-label="Aumentar cantidad"
+                    >+</button>
+                  </div>
+                </div>
               )}
+
+              {!isAdmin && !success && event.available_spots > 0 && (
+                <p className={styles.totalPrice}>
+                  Total: {formatPrice(event.price * quantity)}
+                </p>
+              )}
+
+              {!isAdmin && success && (
+                <div className={styles.success}>¡Compra exitosa! Tus entradas fueron generadas.</div>
+              )}
+
               {!isAdmin && !success && (
                 <button
                   className={styles.buyBtn}
                   onClick={handleBuy}
                   disabled={buying || event.available_spots <= 0}
-                  title={event.available_spots <= 0 ? "No quedan lugares disponibles" : "Comprar esta entrada"}
+                  title={event.available_spots <= 0 ? "No quedan lugares disponibles" : "Comprar entradas"}
                 >
-                  {buying ? "Procesando..." : "Comprar entrada"}
+                  {buyLabel}
                 </button>
               )}
             </div>

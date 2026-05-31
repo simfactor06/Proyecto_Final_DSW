@@ -5,7 +5,7 @@ import { authService } from "../services/authService";
 import styles from "./Auth.module.css";
 
 export default function Register() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", dni: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -20,6 +20,10 @@ export default function Register() {
     setError("");
     if (form.password.length < 6) {
       setError("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+    if (!form.dni.trim()) {
+      setError("El DNI es requerido");
       return;
     }
     setLoading(true);
@@ -39,33 +43,55 @@ export default function Register() {
       <form className={styles.card} onSubmit={handleSubmit}>
         <h2 className={styles.title}>Crear cuenta</h2>
         {error && <p className={styles.error}>{error}</p>}
-        <label className={styles.label}>Nombre</label>
+
+        <label className={styles.label} htmlFor="name">Nombre</label>
         <input
+          id="name"
           className={styles.input}
           type="text"
           name="name"
           value={form.name}
           onChange={handleChange}
+          placeholder="Tu nombre completo"
           required
         />
-        <label className={styles.label}>Email</label>
+
+        <label className={styles.label} htmlFor="dni">DNI</label>
         <input
+          id="dni"
+          className={styles.input}
+          type="text"
+          name="dni"
+          value={form.dni}
+          onChange={handleChange}
+          placeholder="Ej: 40123456"
+          required
+        />
+
+        <label className={styles.label} htmlFor="email">Email</label>
+        <input
+          id="email"
           className={styles.input}
           type="email"
           name="email"
           value={form.email}
           onChange={handleChange}
+          placeholder="tu@email.com"
           required
         />
-        <label className={styles.label}>Contraseña</label>
+
+        <label className={styles.label} htmlFor="password">Contraseña</label>
         <input
+          id="password"
           className={styles.input}
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
+          placeholder="Mínimo 6 caracteres"
           required
         />
+
         <button className={styles.btn} type="submit" disabled={loading}>
           {loading ? "Registrando..." : "Registrarse"}
         </button>

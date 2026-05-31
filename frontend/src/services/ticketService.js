@@ -1,8 +1,8 @@
 import api from "./api";
 
 export const ticketService = {
-  async purchase(eventId) {
-    const res = await api.post("/tickets/purchase", { event_id: eventId });
+  async purchase(eventId, quantity = 1) {
+    const res = await api.post("/tickets/purchase", { event_id: eventId, quantity });
     return res.data;
   },
   async getMyTickets() {
