@@ -38,10 +38,46 @@
   margin-bottom: 1rem;
 }
 
-.loading, .empty {
-  color: #888;
-  padding: 2rem;
+.loadingWrap {
   text-align: center;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #888;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #eee;
+  border-top-color: #e94560;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+}
+
+.emptyText {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #444;
 }
 
 .tableWrapper {

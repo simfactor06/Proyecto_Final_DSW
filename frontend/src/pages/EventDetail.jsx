@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { eventService } from "../services/eventService";
 import { ticketService } from "../services/ticketService";
 import { formatDate, formatPrice } from "../utils/format";
@@ -9,16 +10,16 @@ import styles from "./EventDetail.module.css";
 export default function EventDetail() {
   const { id } = useParams();
   const { isAuthenticated, isAdmin } = useAuth();
+  const { addToast } = useToast();
   const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [buying, setBuying] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     eventService.getById(id).then(setEvent).catch(() => navigate("/")).finally(() => setLoading(false));
-  }, [id]);
+  }, [id, navigate]);
 
   async function handleBuy() {
     if (!isAuthenticated) {
@@ -26,24 +27,32 @@ export default function EventDetail() {
       return;
     }
     setBuying(true);
-    setError("");
     try {
       await ticketService.purchase(event.ID);
       setSuccess(true);
       setEvent((e) => ({ ...e, available_spots: e.available_spots - 1 }));
+      // Nielsen 1 / Shneiderman 3 — feedback de éxito
+      addToast("¡Entrada comprada con éxito! Revisá tus entradas en el perfil.", "success");
     } catch (err) {
-      setError(err.response?.data?.error || "Error al comprar la entrada");
+      // Nielsen 9 — mensaje de error específico y accionable
+      const msg = err.response?.data?.error || "Error al comprar la entrada";
+      addToast(msg, "error");
     } finally {
       setBuying(false);
     }
   }
 
-  if (loading) return <p className={styles.loading}>Cargando...</p>;
+  if (loading) return <p className={styles.loading}>Cargando evento...</p>;
   if (!event) return null;
 
   return (
     <div className="container">
       <div className={styles.page}>
+        {/* Nielsen 3 / Shneiderman 6 — control y libertad: volver atrás */}
+        <button className={styles.backBtn} onClick={() => navigate(-1)} title="Volver a la lista de eventos">
+          ← Volver
+        </button>
+
         <div
           className={styles.banner}
           style={{
@@ -80,16 +89,14 @@ export default function EventDetail() {
                 <div className={styles.success}>¡Compra exitosa! Tu entrada fue generada.</div>
               )}
               {!isAdmin && !success && (
-                <>
-                  {error && <p className={styles.error}>{error}</p>}
-                  <button
-                    className={styles.buyBtn}
-                    onClick={handleBuy}
-                    disabled={buying || event.available_spots <= 0}
-                  >
-                    {buying ? "Procesando..." : "Comprar entrada"}
-                  </button>
-                </>
+                <button
+                  className={styles.buyBtn}
+                  onClick={handleBuy}
+                  disabled={buying || event.available_spots <= 0}
+                  title={event.available_spots <= 0 ? "No quedan lugares disponibles" : "Comprar esta entrada"}
+                >
+                  {buying ? "Procesando..." : "Comprar entrada"}
+                </button>
               )}
             </div>
           </div>

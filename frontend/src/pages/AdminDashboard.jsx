@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { adminService } from "../services/adminService";
 import { eventService } from "../services/eventService";
+import { useToast } from "../context/ToastContext";
 import { formatDate, formatPrice } from "../utils/format";
 import EventFormModal from "../components/EventFormModal";
 import styles from "./AdminDashboard.module.css";
@@ -11,7 +12,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editEvent, setEditEvent] = useState(null);
-  const [error, setError] = useState("");
+  const { addToast } = useToast();
 
   useEffect(() => {
     fetchEvents();
@@ -22,36 +23,42 @@ export default function AdminDashboard() {
     try {
       const data = await eventService.getAll({});
       setEvents(data);
+    } catch {
+      addToast("No se pudieron cargar los eventos.", "error");
     } finally {
       setLoading(false);
     }
   }
 
   async function handleSave(formData) {
-    setError("");
     try {
       if (editEvent) {
         await adminService.updateEvent(editEvent.ID, formData);
+        // Shneiderman 3 / Nielsen 1 — feedback de éxito
+        addToast(`Evento "${formData.title}" actualizado correctamente.`, "success");
       } else {
         await adminService.createEvent(formData);
+        addToast(`Evento "${formData.title}" creado correctamente.`, "success");
       }
       setShowModal(false);
       setEditEvent(null);
       fetchEvents();
     } catch (err) {
-      setError(err.response?.data?.error || "Error al guardar");
+      const msg = err.response?.data?.error || "Error al guardar el evento";
+      addToast(msg, "error");
       throw err;
     }
   }
 
-  async function handleDelete(id) {
-    if (!confirm("¿Estás seguro de eliminar este evento?")) return;
-    setError("");
+  async function handleDelete(id, title) {
+    // Nielsen 5 / Shneiderman 5 — confirmar antes de eliminar
+    if (!window.confirm(`¿Eliminar el evento "${title}"? Esta acción no se puede deshacer.`)) return;
     try {
       await adminService.deleteEvent(id);
       setEvents((es) => es.filter((e) => e.ID !== id));
+      addToast(`Evento "${title}" eliminado.`, "info");
     } catch (err) {
-      setError(err.response?.data?.error || "Error al eliminar");
+      addToast(err.response?.data?.error || "Error al eliminar el evento.", "error");
     }
   }
 
@@ -70,16 +77,27 @@ export default function AdminDashboard() {
       <div className={styles.page}>
         <div className={styles.header}>
           <h1 className={styles.title}>Panel de Administración</h1>
-          <button className={styles.createBtn} onClick={openCreate}>+ Nuevo evento</button>
+          <button className={styles.createBtn} onClick={openCreate} title="Crear un nuevo evento">
+            + Nuevo evento
+          </button>
         </div>
 
-        {error && <p className={styles.error}>{error}</p>}
+        {loading && (
+          <div className={styles.loadingWrap}>
+            <div className={styles.spinner} aria-label="Cargando eventos" />
+            <p>Cargando eventos...</p>
+          </div>
+        )}
 
-        {loading ? (
-          <p className={styles.loading}>Cargando eventos...</p>
-        ) : events.length === 0 ? (
-          <p className={styles.empty}>No hay eventos creados.</p>
-        ) : (
+        {!loading && events.length === 0 && (
+          <div className={styles.empty}>
+            <p className={styles.emptyIcon}>📅</p>
+            <p className={styles.emptyText}>No hay eventos creados todavía.</p>
+            <button className={styles.createBtn} onClick={openCreate}>Crear el primer evento</button>
+          </div>
+        )}
+
+        {!loading && events.length > 0 && (
           <div className={styles.tableWrapper}>
             <table className={styles.table}>
               <thead>
@@ -108,13 +126,25 @@ export default function AdminDashboard() {
                     </td>
                     <td>
                       <div className={styles.actions}>
-                        <Link to={`/admin/events/${event.ID}/report`} className={styles.reportBtn}>
+                        <Link
+                          to={`/admin/events/${event.ID}/report`}
+                          className={styles.reportBtn}
+                          title="Ver reporte de ventas"
+                        >
                           Reporte
                         </Link>
-                        <button className={styles.editBtn} onClick={() => openEdit(event)}>
+                        <button
+                          className={styles.editBtn}
+                          onClick={() => openEdit(event)}
+                          title="Editar este evento"
+                        >
                           Editar
                         </button>
-                        <button className={styles.deleteBtn} onClick={() => handleDelete(event.ID)}>
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={() => handleDelete(event.ID, event.title)}
+                          title="Eliminar este evento permanentemente"
+                        >
                           Eliminar
                         </button>
                       </div>

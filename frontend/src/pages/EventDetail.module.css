@@ -1,7 +1,26 @@
 .loading {
   text-align: center;
   padding: 4rem;
-  color: #888;
+  color: #555;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.4rem 0;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
+}
+
+.backBtn:hover {
+  color: #e94560;
 }
 
 .page {
@@ -32,7 +51,7 @@
 .category {
   display: inline-block;
   background: #fde8ec;
-  color: #e94560;
+  color: #9b0026;
   padding: 0.25rem 0.8rem;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -85,7 +104,7 @@
 
 .buyBtn {
   width: 100%;
-  background: #e94560;
+  background: #c01e3a;
   color: white;
   border: none;
   padding: 0.85rem;

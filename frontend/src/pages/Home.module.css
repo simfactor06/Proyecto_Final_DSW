@@ -66,11 +66,83 @@
   background: #c73652;
 }
 
-.loading, .empty {
+.loadingWrap {
   text-align: center;
   color: #888;
   padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #eee;
+  border-top-color: #e94560;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.emptyText {
   font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.clearBtn {
+  background: transparent;
+  border: 1.5px solid #e94560;
+  color: #e94560;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.2s;
+}
+
+.clearBtn:hover {
+  background: #e94560;
+  color: white;
+}
+
+.soldOutBadge {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  background: rgba(233,69,96,0.9);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.spotsOut {
+  font-size: 0.8rem;
+  color: #e94560;
+  font-weight: 600;
 }
 
 .grid {

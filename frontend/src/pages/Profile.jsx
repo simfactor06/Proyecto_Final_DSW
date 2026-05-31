@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ticketService } from "../services/ticketService";
+import { useToast } from "../context/ToastContext";
 import { formatDate, formatPrice } from "../utils/format";
 import TransferModal from "../components/TransferModal";
 import styles from "./Profile.module.css";
@@ -13,35 +15,39 @@ const STATUS_LABELS = {
 export default function Profile() {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [actionError, setActionError] = useState("");
   const [transferTicket, setTransferTicket] = useState(null);
+  const { addToast } = useToast();
 
   useEffect(() => {
     ticketService.getMyTickets().then(setTickets).finally(() => setLoading(false));
   }, []);
 
-  async function handleCancel(ticketId) {
-    setActionError("");
+  async function handleCancel(ticketId, eventTitle) {
+    // Nielsen 5 / Shneiderman 5 — confirmar antes de acción irreversible
+    if (!window.confirm(`¿Cancelar la entrada para "${eventTitle}"? Esta acción no se puede deshacer.`)) return;
     try {
       await ticketService.cancel(ticketId);
       setTickets((ts) =>
         ts.map((t) => (t.ID === ticketId ? { ...t, status: "Cancelled" } : t))
       );
+      // Shneiderman 3 — feedback informativo
+      addToast("Entrada cancelada correctamente.", "info");
     } catch (err) {
-      setActionError(err.response?.data?.error || "Error al cancelar la entrada");
+      addToast(err.response?.data?.error || "Error al cancelar la entrada.", "error");
     }
   }
 
   async function handleTransferConfirm(email) {
-    setActionError("");
     try {
       await ticketService.transfer(transferTicket.ID, email);
       setTickets((ts) =>
         ts.map((t) => (t.ID === transferTicket.ID ? { ...t, status: "Transferred" } : t))
       );
       setTransferTicket(null);
+      addToast(`Entrada transferida a ${email}.`, "success");
     } catch (err) {
-      setActionError(err.response?.data?.error || "Error al transferir la entrada");
+      addToast(err.response?.data?.error || "Error al transferir. Verificá que el email esté registrado.", "error");
+      throw err;
     }
   }
 
@@ -50,12 +56,20 @@ export default function Profile() {
       <div className={styles.page}>
         <h1 className={styles.title}>Mis Entradas</h1>
 
-        {actionError && <p className={styles.error}>{actionError}</p>}
-
         {loading ? (
-          <p className={styles.loading}>Cargando...</p>
+          <div className={styles.loadingWrap}>
+            <div className={styles.spinner} role="status" aria-label="Cargando entradas" />
+            <p>Cargando tus entradas...</p>
+          </div>
         ) : tickets.length === 0 ? (
-          <p className={styles.empty}>No tenés entradas aún.</p>
+          // Nielsen 6 / Shneiderman 8 — estado vacío informativo
+          <div className={styles.empty}>
+            <p className={styles.emptyIcon}>🎟</p>
+            <p className={styles.emptyText}>No tenés entradas aún.</p>
+            <p className={styles.emptyHint}>
+              Explorá los <Link to="/" className={styles.emptyLink}>eventos disponibles</Link> y comprá tu primera entrada.
+            </p>
+          </div>
         ) : (
           <div className={styles.list}>
             {tickets.map((ticket) => (
@@ -80,13 +94,15 @@ export default function Profile() {
                     <div className={styles.actions}>
                       <button
                         className={styles.cancelBtn}
-                        onClick={() => handleCancel(ticket.ID)}
+                        onClick={() => handleCancel(ticket.ID, ticket.event?.title)}
+                        title="Cancelar esta entrada (acción irreversible)"
                       >
                         Cancelar
                       </button>
                       <button
                         className={styles.transferBtn}
                         onClick={() => setTransferTicket(ticket)}
+                        title="Transferir esta entrada a otro usuario"
                       >
                         Transferir
                       </button>

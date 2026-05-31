@@ -4,6 +4,7 @@ import { eventService } from "../services/eventService";
 import { formatDate, formatPrice } from "../utils/format";
 import styles from "./Home.module.css";
 
+// Nielsen 6 / Shneiderman 8 — reconocimiento: las categorías coinciden con las del formulario admin
 const CATEGORIES = ["", "Música", "Deportes", "Teatro", "Arte", "Tecnología", "Otro"];
 
 export default function Home() {
@@ -33,6 +34,14 @@ export default function Home() {
     fetchEvents();
   }
 
+  function handleClear() {
+    setSearch("");
+    setCategory("");
+    setHasSearched(false);
+  }
+
+  const isFiltering = search || category;
+
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
@@ -41,31 +50,60 @@ export default function Home() {
       </div>
 
       <div className="container">
-        <form className={styles.filters} onSubmit={handleSearch}>
+        {/* Nielsen 7 / Shneiderman 8 — búsqueda eficiente con filtros claros */}
+        <form className={styles.filters} onSubmit={handleSearch} role="search">
           <input
             className={styles.searchInput}
-            type="text"
-            placeholder="Buscar evento..."
+            type="search"
+            placeholder="Buscar por nombre de evento..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            aria-label="Buscar eventos"
           />
           <select
             className={styles.select}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            aria-label="Filtrar por categoría"
           >
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>{c || "Todas las categorías"}</option>
             ))}
           </select>
           <button className={styles.searchBtn} type="submit">Buscar</button>
+          {isFiltering && (
+            <button type="button" className={styles.clearBtn} onClick={handleClear} title="Limpiar filtros">
+              ✕ Limpiar
+            </button>
+          )}
         </form>
 
-        {loading ? (
-          <p className={styles.loading}>Cargando eventos...</p>
-        ) : events.length === 0 ? (
-          <p className={styles.empty}>No se encontraron eventos.</p>
-        ) : (
+        {/* Nielsen 1 — visibilidad del estado del sistema */}
+        {loading && (
+          <div className={styles.loadingWrap}>
+            <div className={styles.spinner} aria-label="Cargando eventos" />
+            <p>Cargando eventos...</p>
+          </div>
+        )}
+
+        {/* Nielsen 9 — estado vacío con guía de recuperación */}
+        {!loading && events.length === 0 && (
+          <div className={styles.empty}>
+            <p className={styles.emptyIcon}>🔍</p>
+            <p className={styles.emptyText}>
+              {isFiltering
+                ? "No se encontraron eventos con esos filtros."
+                : "No hay eventos disponibles por el momento."}
+            </p>
+            {isFiltering && (
+              <button type="button" className={styles.clearBtn} onClick={handleClear}>
+                Ver todos los eventos
+              </button>
+            )}
+          </div>
+        )}
+
+        {!loading && events.length > 0 && (
           <div className={styles.grid}>
             {events.map((event) => (
               <Link to={`/events/${event.ID}`} key={event.ID} className={styles.card}>
@@ -78,16 +116,17 @@ export default function Home() {
                   }}
                 >
                   <span className={styles.category}>{event.category || "General"}</span>
+                  {event.available_spots === 0 && (
+                    <span className={styles.soldOutBadge}>Agotado</span>
+                  )}
                 </div>
                 <div className={styles.cardBody}>
                   <h3 className={styles.cardTitle}>{event.title}</h3>
-                  <p className={styles.cardDate}>{formatDate(event.event_date)} · {event.event_time?.slice(0, 5)}</p>
+                  <p className={styles.cardDate}>{formatDate(event.event_date)} · {event.event_time?.slice(0, 5)} hs</p>
                   <div className={styles.cardFooter}>
                     <span className={styles.price}>{formatPrice(event.price)}</span>
-                    <span className={styles.spots}>
-                      {event.available_spots > 0
-                        ? `${event.available_spots} lugares`
-                        : "Agotado"}
+                    <span className={event.available_spots > 0 ? styles.spots : styles.spotsOut}>
+                      {event.available_spots > 0 ? `${event.available_spots} lugares` : "Sin lugares"}
                     </span>
                   </div>
                 </div>
