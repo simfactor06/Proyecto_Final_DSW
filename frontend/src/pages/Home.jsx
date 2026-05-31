@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { eventService } from "../services/eventService";
 import { formatDate, formatPrice } from "../utils/format";
 import styles from "./Home.module.css";
 
-// Nielsen 6 / Shneiderman 8 — reconocimiento: las categorías coinciden con las del formulario admin
-const CATEGORIES = ["", "Música", "Deportes", "Teatro", "Arte", "Tecnología", "Otro"];
+// Nielsen 6 / Shneiderman 8 â€” reconocimiento: las categorÃ­as coinciden con las del formulario admin
+const CATEGORIES = ["", "MÃºsica", "Deportes", "Teatro", "Arte", "TecnologÃ­a", "Otro"];
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -37,7 +37,6 @@ export default function Home() {
   function handleClear() {
     setSearch("");
     setCategory("");
-    setHasSearched(false);
   }
 
   const isFiltering = search || category;
@@ -45,12 +44,12 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
-        <h1>Descubrí los mejores eventos</h1>
-        <p>Comprá tus entradas de forma rápida y segura</p>
+        <h1>DescubrÃ­ los mejores eventos</h1>
+        <p>ComprÃ¡ tus entradas de forma rÃ¡pida y segura</p>
       </div>
 
       <div className="container">
-        {/* Nielsen 7 / Shneiderman 8 — búsqueda eficiente con filtros claros */}
+        {/* Nielsen 7 / Shneiderman 8 â€” bÃºsqueda eficiente con filtros claros */}
         <form className={styles.filters} onSubmit={handleSearch} role="search">
           <input
             className={styles.searchInput}
@@ -64,21 +63,21 @@ export default function Home() {
             className={styles.select}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            aria-label="Filtrar por categoría"
+            aria-label="Filtrar por categorÃ­a"
           >
             {CATEGORIES.map((c) => (
-              <option key={c} value={c}>{c || "Todas las categorías"}</option>
+              <option key={c} value={c}>{c || "Todas las categorÃ­as"}</option>
             ))}
           </select>
           <button className={styles.searchBtn} type="submit">Buscar</button>
           {isFiltering && (
             <button type="button" className={styles.clearBtn} onClick={handleClear} title="Limpiar filtros">
-              ✕ Limpiar
+              âœ• Limpiar
             </button>
           )}
         </form>
 
-        {/* Nielsen 1 — visibilidad del estado del sistema */}
+        {/* Nielsen 1 â€” visibilidad del estado del sistema */}
         {loading && (
           <div className={styles.loadingWrap}>
             <div className={styles.spinner} aria-label="Cargando eventos" />
@@ -86,10 +85,10 @@ export default function Home() {
           </div>
         )}
 
-        {/* Nielsen 9 — estado vacío con guía de recuperación */}
+        {/* Nielsen 9 â€” estado vacÃ­o con guÃ­a de recuperaciÃ³n */}
         {!loading && events.length === 0 && (
           <div className={styles.empty}>
-            <p className={styles.emptyIcon}>🔍</p>
+            <p className={styles.emptyIcon}>ðŸ”</p>
             <p className={styles.emptyText}>
               {isFiltering
                 ? "No se encontraron eventos con esos filtros."
@@ -112,7 +111,7 @@ export default function Home() {
                   style={{
                     backgroundImage: event.image_url
                       ? `url(${event.image_url})`
-                      : "linear-gradient(135deg, #1a1a2e, #e94560)",
+                      : "linear-gradient(135deg, #1E293B, #2563EB)",
                   }}
                 >
                   <span className={styles.category}>{event.category || "General"}</span>
@@ -122,7 +121,7 @@ export default function Home() {
                 </div>
                 <div className={styles.cardBody}>
                   <h3 className={styles.cardTitle}>{event.title}</h3>
-                  <p className={styles.cardDate}>{formatDate(event.event_date)} · {event.event_time?.slice(0, 5)} hs</p>
+                  <p className={styles.cardDate}>{formatDate(event.event_date)} Â· {event.event_time?.slice(0, 5)} hs</p>
                   <div className={styles.cardFooter}>
                     <span className={styles.price}>{formatPrice(event.price)}</span>
                     <span className={event.available_spots > 0 ? styles.spots : styles.spotsOut}>
