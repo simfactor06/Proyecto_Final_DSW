@@ -1,4 +1,4 @@
-.overlay {
+﻿.overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.55);
@@ -23,7 +23,7 @@
 .title {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #1E293B;
   margin-bottom: 0.3rem;
 }
 
@@ -79,7 +79,7 @@
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
-  border-color: #e94560;
+  border-color: #2563EB;
 }
 
 .imageRow {
@@ -93,7 +93,7 @@
 }
 
 .uploadBtn {
-  background: #1a1a2e;
+  background: #1E293B;
   color: white;
   border: none;
   padding: 0.6rem 1rem;
@@ -115,7 +115,7 @@
 }
 
 .err {
-  color: #e94560;
+  color: #DC2626;
   font-size: 0.78rem;
 }
 
@@ -141,7 +141,7 @@
 }
 
 .saveBtn {
-  background: #e94560;
+  background: #2563EB;
   color: white;
   border: none;
   padding: 0.6rem 1.4rem;
@@ -152,7 +152,7 @@
 }
 
 .saveBtn:hover:not(:disabled) {
-  background: #c73652;
+  background: #1D4ED8;
 }
 
 .saveBtn:disabled {

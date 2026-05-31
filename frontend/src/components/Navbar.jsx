@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.brand}>
-        <Link to="/">Ticketek</Link>
+        <Link to="/">EventPass</Link>
       </div>
       <div className={styles.links}>
         <Link to="/">Eventos</Link>

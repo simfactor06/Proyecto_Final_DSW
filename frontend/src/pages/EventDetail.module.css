@@ -1,4 +1,4 @@
-.loading {
+﻿.loading {
   text-align: center;
   padding: 4rem;
   color: #555;
@@ -20,7 +20,7 @@
 }
 
 .backBtn:hover {
-  color: #e94560;
+  color: #2563EB;
 }
 
 .page {
@@ -50,8 +50,8 @@
 
 .category {
   display: inline-block;
-  background: #fde8ec;
-  color: #9b0026;
+  background: #EFF6FF;
+  color: #1E40AF;
   padding: 0.25rem 0.8rem;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -62,7 +62,7 @@
 .title {
   font-size: 2rem;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #1E293B;
   margin-bottom: 0.8rem;
 }
 
@@ -92,7 +92,7 @@
 .price {
   font-size: 2rem;
   font-weight: 800;
-  color: #e94560;
+  color: #2563EB;
   margin-bottom: 0.3rem;
 }
 
@@ -104,7 +104,7 @@
 
 .buyBtn {
   width: 100%;
-  background: #c01e3a;
+  background: #1D4ED8;
   color: white;
   border: none;
   padding: 0.85rem;
@@ -115,7 +115,7 @@
 }
 
 .buyBtn:hover:not(:disabled) {
-  background: #c73652;
+  background: #1D4ED8;
 }
 
 .buyBtn:disabled {

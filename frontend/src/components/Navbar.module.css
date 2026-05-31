@@ -1,5 +1,5 @@
-.navbar {
-  background-color: #1a1a2e;
+﻿.navbar {
+  background-color: #1E293B;
   color: white;
   padding: 0 2rem;
   display: flex;
@@ -15,7 +15,7 @@
 .brand a {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #e94560;
+  color: #2563EB;
   letter-spacing: 1px;
 }
 
@@ -48,8 +48,8 @@
 
 .logoutBtn {
   background: transparent;
-  border: 1px solid #e94560;
-  color: #e94560;
+  border: 1px solid #2563EB;
+  color: #2563EB;
   padding: 0.3rem 0.8rem;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -57,7 +57,7 @@
 }
 
 .logoutBtn:hover {
-  background: #e94560;
+  background: #2563EB;
   color: white;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .registerBtn {
-  background: #e94560;
+  background: #2563EB;
   padding: 0.3rem 0.8rem;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -86,5 +86,5 @@
 }
 
 .registerBtn:hover {
-  background: #c73652;
+  background: #1D4ED8;
 }
