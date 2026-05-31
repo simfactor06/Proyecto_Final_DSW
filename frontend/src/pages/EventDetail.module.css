@@ -148,3 +148,63 @@
   text-align: center;
   padding: 0.5rem 0;
 }
+
+.quantityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.qtyLabel {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.qtyControls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.qtyBtn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1E293B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.qtyBtn:hover:not(:disabled) {
+  background: #EFF6FF;
+  border-color: #2563EB;
+}
+
+.qtyBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.qtyValue {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1E293B;
+  min-width: 24px;
+  text-align: center;
+}
+
+.totalPrice {
+  font-size: 0.88rem;
+  color: #555;
+  text-align: right;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}

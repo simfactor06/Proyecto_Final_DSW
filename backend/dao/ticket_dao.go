@@ -25,7 +25,7 @@ func GetTicketByID(id uint) (*domain.Ticket, error) {
 }
 
 func UpdateTicket(ticket *domain.Ticket) error {
-	return DB.Save(ticket).Error
+	return DB.Model(ticket).Update("status", ticket.Status).Error
 }
 
 func GetTicketsByEventID(eventID uint) ([]domain.Ticket, error) {

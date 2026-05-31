@@ -16,12 +16,12 @@ func PurchaseTicket(c *gin.Context) {
 		return
 	}
 	userID := utils.GetUserIDFromContext(c)
-	ticket, err := services.PurchaseTicket(userID, input)
+	tickets, err := services.PurchaseTicket(userID, input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusCreated, ticket)
+	c.JSON(http.StatusCreated, tickets)
 }
 
 func GetMyTickets(c *gin.Context) {
