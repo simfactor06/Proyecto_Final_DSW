@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
@@ -31,10 +31,8 @@ export default function EventDetail() {
       await ticketService.purchase(event.ID);
       setSuccess(true);
       setEvent((e) => ({ ...e, available_spots: e.available_spots - 1 }));
-      // Nielsen 1 / Shneiderman 3 â€” feedback de Ã©xito
       addToast("¡Entrada comprada con éxito! Revisá tus entradas en el perfil.", "success");
     } catch (err) {
-      // Nielsen 9 â€” mensaje de error especÃ­fico y accionable
       const msg = err.response?.data?.error || "Error al comprar la entrada";
       addToast(msg, "error");
     } finally {
@@ -48,9 +46,8 @@ export default function EventDetail() {
   return (
     <div className="container">
       <div className={styles.page}>
-        {/* Nielsen 3 / Shneiderman 6 â€” control y libertad: volver atrÃ¡s */}
         <button className={styles.backBtn} onClick={() => navigate(-1)} title="Volver a la lista de eventos">
-          â† Volver
+          ← Volver
         </button>
 
         <div
@@ -86,7 +83,7 @@ export default function EventDetail() {
                 <p className={styles.adminNote}>Los administradores no pueden comprar entradas.</p>
               )}
               {!isAdmin && success && (
-                <div className={styles.success}>Â¡Compra exitosa! Tu entrada fue generada.</div>
+                <div className={styles.success}>¡Compra exitosa! Tu entrada fue generada.</div>
               )}
               {!isAdmin && !success && (
                 <button
