@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
+import SplashScreen from "./components/SplashScreen";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import EventDetail from "./pages/EventDetail";
@@ -58,9 +59,12 @@ function AppRoutes() {
 }
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
     <ToastProvider>
       <AuthProvider>
+        {showSplash && <SplashScreen onDismiss={() => setShowSplash(false)} />}
         <BrowserRouter>
           <AppRoutes />
         </BrowserRouter>
