@@ -13,7 +13,7 @@ type PurchaseInput struct {
 }
 
 type TransferInput struct {
-	TargetEmail string `json:"target_email" binding:"required,email"`
+	TargetDNI string `json:"target_dni" binding:"required"`
 }
 
 func PurchaseTicket(userID uint, input PurchaseInput) ([]domain.Ticket, error) {
@@ -85,12 +85,12 @@ func TransferTicket(ticketID, userID uint, input TransferInput) error {
 	if ticket.Status != domain.StatusActive {
 		return errors.New("only active tickets can be transferred")
 	}
-	target, err := dao.GetUserByEmail(input.TargetEmail)
+	target, err := dao.GetUserByDNI(input.TargetDNI)
 	if err != nil {
-		return errors.New("target user not found")
+		return errors.New("no se encontró un usuario con ese DNI")
 	}
 	if target.ID == userID {
-		return errors.New("cannot transfer ticket to yourself")
+		return errors.New("no podés transferirte una entrada a vos mismo")
 	}
 	ticket.Status = domain.StatusTransferred
 	if err := dao.UpdateTicket(ticket); err != nil {

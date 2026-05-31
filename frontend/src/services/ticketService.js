@@ -13,8 +13,8 @@ export const ticketService = {
     const res = await api.post(`/tickets/${ticketId}/cancel`);
     return res.data;
   },
-  async transfer(ticketId, targetEmail) {
-    const res = await api.post(`/tickets/${ticketId}/transfer`, { target_email: targetEmail });
+  async transfer(ticketId, targetDNI) {
+    const res = await api.post(`/tickets/${ticketId}/transfer`, { target_dni: targetDNI });
     return res.data;
   },
 };
