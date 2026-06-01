@@ -1,4 +1,4 @@
-.page {
+﻿.page {
   min-height: calc(100vh - 64px);
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
 .title {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #1E293B;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -43,12 +43,12 @@
 }
 
 .input:focus {
-  border-color: #e94560;
+  border-color: #2563EB;
 }
 
 .btn {
   margin-top: 1rem;
-  background: #e94560;
+  background: #2563EB;
   color: white;
   border: none;
   padding: 0.75rem;
@@ -59,7 +59,7 @@
 }
 
 .btn:hover:not(:disabled) {
-  background: #c73652;
+  background: #1D4ED8;
 }
 
 .btn:disabled {
@@ -83,6 +83,6 @@
 }
 
 .footer a {
-  color: #e94560;
+  color: #2563EB;
   font-weight: 600;
 }

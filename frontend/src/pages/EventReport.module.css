@@ -1,4 +1,4 @@
-.loading {
+﻿.loading {
   text-align: center;
   padding: 4rem;
   color: #888;
@@ -10,7 +10,7 @@
 
 .back {
   display: inline-block;
-  color: #e94560;
+  color: #2563EB;
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
@@ -23,7 +23,7 @@
 .title {
   font-size: 2rem;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #1E293B;
 }
 
 .subtitle {
@@ -52,11 +52,11 @@
 .statValue {
   font-size: 2rem;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #1E293B;
 }
 
 .accent {
-  color: #e94560;
+  color: #2563EB;
 }
 
 .statLabel {
@@ -76,7 +76,7 @@
 .sectionTitle {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #1E293B;
   margin-bottom: 1rem;
 }
 

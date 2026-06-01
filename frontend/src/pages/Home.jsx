@@ -4,7 +4,6 @@ import { eventService } from "../services/eventService";
 import { formatDate, formatPrice } from "../utils/format";
 import styles from "./Home.module.css";
 
-// Nielsen 6 / Shneiderman 8 — reconocimiento: las categorías coinciden con las del formulario admin
 const CATEGORIES = ["", "Música", "Deportes", "Teatro", "Arte", "Tecnología", "Otro"];
 
 export default function Home() {
@@ -37,7 +36,6 @@ export default function Home() {
   function handleClear() {
     setSearch("");
     setCategory("");
-    setHasSearched(false);
   }
 
   const isFiltering = search || category;
@@ -50,7 +48,6 @@ export default function Home() {
       </div>
 
       <div className="container">
-        {/* Nielsen 7 / Shneiderman 8 — búsqueda eficiente con filtros claros */}
         <form className={styles.filters} onSubmit={handleSearch} role="search">
           <input
             className={styles.searchInput}
@@ -78,7 +75,6 @@ export default function Home() {
           )}
         </form>
 
-        {/* Nielsen 1 — visibilidad del estado del sistema */}
         {loading && (
           <div className={styles.loadingWrap}>
             <div className={styles.spinner} aria-label="Cargando eventos" />
@@ -86,7 +82,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* Nielsen 9 — estado vacío con guía de recuperación */}
         {!loading && events.length === 0 && (
           <div className={styles.empty}>
             <p className={styles.emptyIcon}>🔍</p>
@@ -112,7 +107,7 @@ export default function Home() {
                   style={{
                     backgroundImage: event.image_url
                       ? `url(${event.image_url})`
-                      : "linear-gradient(135deg, #1a1a2e, #e94560)",
+                      : "linear-gradient(135deg, #1E293B, #2563EB)",
                   }}
                 >
                   <span className={styles.category}>{event.category || "General"}</span>

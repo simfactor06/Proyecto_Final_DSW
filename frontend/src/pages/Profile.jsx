@@ -27,26 +27,23 @@ export default function Profile() {
     if (!window.confirm(`¿Cancelar la entrada para "${eventTitle}"? Esta acción no se puede deshacer.`)) return;
     try {
       await ticketService.cancel(ticketId);
-      setTickets((ts) =>
-        ts.map((t) => (t.ID === ticketId ? { ...t, status: "Cancelled" } : t))
-      );
-      // Shneiderman 3 — feedback informativo
+      setTickets((ts) => ts.filter((t) => t.ID !== ticketId));
       addToast("Entrada cancelada correctamente.", "info");
     } catch (err) {
       addToast(err.response?.data?.error || "Error al cancelar la entrada.", "error");
     }
   }
 
-  async function handleTransferConfirm(email) {
+  async function handleTransferConfirm(dni) {
     try {
-      await ticketService.transfer(transferTicket.ID, email);
+      await ticketService.transfer(transferTicket.ID, dni);
       setTickets((ts) =>
         ts.map((t) => (t.ID === transferTicket.ID ? { ...t, status: "Transferred" } : t))
       );
       setTransferTicket(null);
-      addToast(`Entrada transferida a ${email}.`, "success");
+      addToast("Entrada transferida correctamente.", "success");
     } catch (err) {
-      addToast(err.response?.data?.error || "Error al transferir. Verificá que el email esté registrado.", "error");
+      addToast(err.response?.data?.error || "Error al transferir. Verificá que el DNI esté registrado.", "error");
       throw err;
     }
   }

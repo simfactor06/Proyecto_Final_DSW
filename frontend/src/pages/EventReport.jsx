@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
@@ -6,7 +6,7 @@ import {
 import { adminService } from "../services/adminService";
 import styles from "./EventReport.module.css";
 
-const COLORS = ["#e94560", "#e3f2fd"];
+const COLORS = ["#2563EB", "#e3f2fd"];
 
 export default function EventReport() {
   const { id } = useParams();
@@ -28,9 +28,9 @@ export default function EventReport() {
   return (
     <div className="container">
       <div className={styles.page}>
-        <Link to="/admin" className={styles.back}>← Volver al panel</Link>
+        <Link to="/admin" className={styles.back}>â† Volver al panel</Link>
         <h1 className={styles.title}>{report.title}</h1>
-        <p className={styles.subtitle}>Reporte de ocupación</p>
+        <p className={styles.subtitle}>Reporte de ocupaciÃ³n</p>
 
         <div className={styles.stats}>
           <div className={styles.stat}>
@@ -49,12 +49,12 @@ export default function EventReport() {
             <span className={`${styles.statValue} ${styles.accent}`}>
               {report.occupancy_rate.toFixed(1)}%
             </span>
-            <span className={styles.statLabel}>Ocupación</span>
+            <span className={styles.statLabel}>OcupaciÃ³n</span>
           </div>
         </div>
 
         <div className={styles.chartSection}>
-          <h2 className={styles.sectionTitle}>Distribución de capacidad</h2>
+          <h2 className={styles.sectionTitle}>DistribuciÃ³n de capacidad</h2>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie data={pieData} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>

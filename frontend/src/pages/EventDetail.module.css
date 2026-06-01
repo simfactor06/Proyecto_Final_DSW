@@ -1,4 +1,4 @@
-.loading {
+﻿.loading {
   text-align: center;
   padding: 4rem;
   color: #555;
@@ -20,7 +20,7 @@
 }
 
 .backBtn:hover {
-  color: #e94560;
+  color: #2563EB;
 }
 
 .page {
@@ -50,8 +50,8 @@
 
 .category {
   display: inline-block;
-  background: #fde8ec;
-  color: #9b0026;
+  background: #EFF6FF;
+  color: #1E40AF;
   padding: 0.25rem 0.8rem;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -62,7 +62,7 @@
 .title {
   font-size: 2rem;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #1E293B;
   margin-bottom: 0.8rem;
 }
 
@@ -92,7 +92,7 @@
 .price {
   font-size: 2rem;
   font-weight: 800;
-  color: #e94560;
+  color: #2563EB;
   margin-bottom: 0.3rem;
 }
 
@@ -104,7 +104,7 @@
 
 .buyBtn {
   width: 100%;
-  background: #c01e3a;
+  background: #1D4ED8;
   color: white;
   border: none;
   padding: 0.85rem;
@@ -115,7 +115,7 @@
 }
 
 .buyBtn:hover:not(:disabled) {
-  background: #c73652;
+  background: #1D4ED8;
 }
 
 .buyBtn:disabled {
@@ -147,4 +147,64 @@
   color: #888;
   text-align: center;
   padding: 0.5rem 0;
+}
+
+.quantityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.qtyLabel {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.qtyControls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.qtyBtn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1E293B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.qtyBtn:hover:not(:disabled) {
+  background: #EFF6FF;
+  border-color: #2563EB;
+}
+
+.qtyBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.qtyValue {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1E293B;
+  min-width: 24px;
+  text-align: center;
+}
+
+.totalPrice {
+  font-size: 0.88rem;
+  color: #555;
+  text-align: right;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
 }

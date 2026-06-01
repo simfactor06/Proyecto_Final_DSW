@@ -44,6 +44,11 @@ func DecrementAvailableSpots(eventID uint) error {
 		UpdateColumn("available_spots", DB.Raw("available_spots - 1")).Error
 }
 
+func DecrementAvailableSpotsByN(eventID uint, n int) error {
+	return DB.Model(&domain.Event{}).Where("id = ? AND available_spots >= ?", eventID, n).
+		UpdateColumn("available_spots", DB.Raw("available_spots - ?", n)).Error
+}
+
 func IncrementAvailableSpots(eventID uint) error {
 	return DB.Model(&domain.Event{}).Where("id = ?", eventID).
 		UpdateColumn("available_spots", DB.Raw("available_spots + 1")).Error

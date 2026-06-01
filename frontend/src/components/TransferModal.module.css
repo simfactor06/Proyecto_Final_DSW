@@ -1,4 +1,4 @@
-.overlay {
+﻿.overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
@@ -20,7 +20,7 @@
 .title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #1E293B;
   margin-bottom: 0.3rem;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .input:focus {
-  border-color: #e94560;
+  border-color: #2563EB;
 }
 
 .actions {
@@ -83,7 +83,7 @@
 }
 
 .confirmBtn {
-  background: #1a1a2e;
+  background: #1E293B;
   color: white;
   border: none;
   padding: 0.55rem 1.2rem;
@@ -94,7 +94,7 @@
 }
 
 .confirmBtn:hover:not(:disabled) {
-  background: #0f3460;
+  background: #1E3A5F;
 }
 
 .confirmBtn:disabled {
