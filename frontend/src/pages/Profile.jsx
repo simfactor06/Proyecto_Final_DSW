@@ -27,10 +27,7 @@ export default function Profile() {
     if (!window.confirm(`¿Cancelar la entrada para "${eventTitle}"? Esta acción no se puede deshacer.`)) return;
     try {
       await ticketService.cancel(ticketId);
-      setTickets((ts) =>
-        ts.map((t) => (t.ID === ticketId ? { ...t, status: "Cancelled" } : t))
-      );
-      // Shneiderman 3 — feedback informativo
+      setTickets((ts) => ts.filter((t) => t.ID !== ticketId));
       addToast("Entrada cancelada correctamente.", "info");
     } catch (err) {
       addToast(err.response?.data?.error || "Error al cancelar la entrada.", "error");
